@@ -10,11 +10,11 @@
   <link rel="stylesheet" href="styles/login.css" />
 </head>
 
-<body style="display: flex;">
+<body style="display: flex;" onload="identifyPurpose()">
   <div class="container">
     <div class="title">
       <h2>Login</h2>
-      <p>Anokha 2024 | Event Attendance</p>
+      <p id="purpose"></p>
     </div>  
     <form onsubmit="login()">
       <div class="input-group">

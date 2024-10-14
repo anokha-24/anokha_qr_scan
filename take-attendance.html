@@ -14,10 +14,8 @@
   </head>
 
   <body onload="init()">
-    <h1>Take Attendance</h1>
+    <h1 id="page-title">Take Attendance</h1>
     <p id="event-name"></p>
-
-    <a href="events.html" class="back-button">Back to Events Page</a>
 
     <div class="segmented-control">
       <button
@@ -43,6 +41,9 @@
 
   <script type="text/javascript" src="./app.js"></script>
   <script type="text/javascript">
+    const url = new URLSearchParams(window.location.search);
+    const wtf = url.get("wtf") ?? '1';
+
     function extractStudentId(qrCodeText) {
       if (qrCodeText.startsWith("anokha://")) {
         return qrCodeText.substring(9);
@@ -69,29 +70,45 @@
         return;
       }
 
-      const eventId = getEventIdFromUrl();
-      const mode = document.querySelector("#mode").innerHTML;
-      const entry = mode === "Marking Entry";
+      if (wtf.toString() === '0') {
+        const mode = document.querySelector("#mode").innerHTML;
+        const entry = mode === "Marking Entry";
 
-      // Call the API to mark attendance
-      if (entry) {
-        markEntry(eventId, studentId).then(() => {
-            html5QrcodeScanner.resume();
-        });
-        // console.log("Marking entry");
-
-        // setTimeout(() => {
-        //   html5QrcodeScanner.resume();
-        // }, 2000);
+        // Call the API to mark Gate Entry/Exit
+        if (entry) {
+          markGateEntry(studentId).then(() => {
+              html5QrcodeScanner.resume();
+          });
+        } else {
+          markGateExit(studentId).then(() => {
+              html5QrcodeScanner.resume();
+          });
+        }
       } else {
-        markExit(eventId, studentId).then(() => {
-            this.html5QrcodeScanner.resume();
-        });
-        // console.log("Marking exit");
+        const eventId = getEventIdFromUrl();
+        const mode = document.querySelector("#mode").innerHTML;
+        const entry = mode === "Marking Entry";
 
-        // setTimeout(() => {
-        //   html5QrcodeScanner.resume();
-        // }, 2000);
+        // Call the API to mark attendance
+        if (entry) {
+          markEntry(eventId, studentId).then(() => {
+              html5QrcodeScanner.resume();
+          });
+          // console.log("Marking entry");
+
+          // setTimeout(() => {
+          //   html5QrcodeScanner.resume();
+          // }, 2000);
+        } else {
+          markExit(eventId, studentId).then(() => {
+              this.html5QrcodeScanner.resume();
+          });
+          // console.log("Marking exit");
+
+          // setTimeout(() => {
+          //   html5QrcodeScanner.resume();
+          // }, 2000);
+        }
       }
     }
 

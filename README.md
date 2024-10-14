@@ -1,14 +1,15 @@
 # Anokha Event Attendance
 
-Built for Anokha Event Organizers/Admins to take attendance of the participants in the event and ensure that only registered participants are allowed to enter/exit the event.
+Built for Anokha Event Organizers/Admins, this application allows you to take attendance of participants in events, ensuring that only registered participants are allowed to enter or exit the respective event. Additionally, entry and exit at the main gate can be recorded and controlled.
 
 ## Features
 
 - [x] Admins/EventOrganizers/AttendanceTakers can login to the app.
+- [x] Gate Entry/Exit can be marked via QR Code Scanning.
 - [x] Events associated with the logged in user are displayed.
     - [x] Display the events the logged official can take attendance for.
     - [x] Select the event to take attendance for.
-- [x] Take Attendance Screen
+- [x] Take Attendance Screen.
     - [x] QR Code Scanner to scan the QR Code of the participant.
         - [x] Scan QR with camera.
         - [x] Upload QR screenshot to take attendance.
@@ -29,6 +30,8 @@ Built for Anokha Event Organizers/Admins to take attendance of the participants 
 
 1. Clone the repository.
 2. Open the project in your favorite code editor.
-3. Open the `index.html` file in your browser.
+3. Follow the steps below to run the project.
+    1. `Event Attendance` - Open the `index.html` file in your browser.
+    2. `Gate Entry/Exit` - Open the `index.html?wtf=0` file in your browser (wtf=0 is a query parameter to differentiate between the two functionalities).
 
 Built with ❤️ by Ashwin Narayanan S.

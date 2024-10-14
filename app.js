@@ -4,8 +4,20 @@ const LOGIN_URL = `${BASE_URL}/auth/loginOfficial`;
 const EVENTS_URL = `${BASE_URL}/admin/getOfficialEvents`;
 const ENTRY_ATTENDANCE_URL = `${BASE_URL}/admin/markEventAttendanceEntry`;
 const EXIT_ATTENDANCE_URL = `${BASE_URL}/admin/markEventAttendanceExit`;
+const GATE_ENTRY_URL = `${BASE_URL}/admin/markGateEntry`;
+const GATE_EXIT_URL = `${BASE_URL}/admin/markGateExit`;
 
 let isEntry = true;
+
+function identifyPurpose() {
+    const url = new URLSearchParams(window.location.search);
+    const wtf = url.get('wtf') ?? '1';
+    if (wtf.toString() === '0') {
+        document.querySelector('#purpose').innerHTML = "Anokha 2024 | Gate Entry/Exit";
+    } else {
+        document.querySelector('#purpose').innerHTML = "Anokha 2024 | Event Attendance";
+    }
+}
 
 async function sha256(message) {
     const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
@@ -55,7 +67,14 @@ async function login() {
         localStorage.setItem("MANAGER_EMAIL", data.managerEmail);
         localStorage.setItem("MANAGER_ROLE_ID", data.managerRoleId);
 
-        window.location.href = "events.html";
+        const url = new URLSearchParams(window.location.search);
+        const wtf = url.get('wtf') ?? '1';
+
+        if (wtf.toString() === '0') {
+            window.location.href = "take-attendance.html?wtf=0&eventName=Gate%20Entry%2FExit";
+        } else {
+            window.location.href = "events.html";
+        }
 
     } else if (response.status === 500) {
         alert("Server error");
@@ -123,10 +142,24 @@ function searchEvents() {
 function init() {
     const urlParams = new URLSearchParams(window.location.search);
     const eventName = urlParams.get('eventName');
+    const wtf = urlParams.get('wtf') ?? '1';
 
     const eventNameElement = document.querySelector('#event-name');
     eventNameElement.innerHTML = eventName;
 
+    if (wtf.toString() !== '0') {
+        eventNameElement.insertAdjacentHTML(
+            'afterend', 
+            `
+            <a href="events.html" class="back-button">Back to Events Page</a>
+            <a href="index.html" class="logout-button">Logout</a>
+            `,
+        );
+    } else {
+        const pageTitle = document.querySelector('#page-title');
+        pageTitle.innerHTML = "Anokha 2024";
+        eventNameElement.insertAdjacentHTML('afterend', `<a href="index.html?wtf=0" class="logout-button">Logout</a>`);
+    }
 
     document.querySelector('#entry-button').disabled = true;
     document.querySelector('#exit-button').disabled = false;
@@ -185,7 +218,54 @@ async function markExit(eventId, studentId) {
         alert("Something's not right bro.");
     }
 }
-    
+
+async function markGateEntry(studentId) {
+    const SECRET_TOKEN = localStorage.getItem("SECERT_TOKEN");
+    const url = `${GATE_ENTRY_URL}/${studentId}`;
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${SECRET_TOKEN}`,
+        },
+    });
+
+    if (response.status === 200) {
+        const data = await response.json();
+        alert(data.MESSAGE);
+    } else if (response.status === 401) {
+        logout();
+    } else if (response.status === 400) {
+        const data = await response.json();
+        alert(data.MESSAGE ?? "Something's not right bro.");
+    } else {
+        alert("Something's not right bro.");
+    }
+}
+
+async function markGateExit(studentId) {
+    const SECRET_TOKEN = localStorage.getItem("SECERT_TOKEN");
+    const url = `${GATE_EXIT_URL}/${studentId}`;
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${SECRET_TOKEN}`,
+        },
+    });
+
+    if (response.status === 200) {
+        const data = await response.json();
+        alert(data.MESSAGE);
+    } else if (response.status === 401) {
+        logout();
+    } else if (response.status === 400) {
+        const data = await response.json();
+        alert(data.MESSAGE ?? "Something's not right bro.");
+    } else {
+        alert("Something's not right bro.");
+    }
+}
 
 function redirectTo(url) {
     window.location.href = url
