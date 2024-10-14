@@ -12,3 +12,21 @@ body {
     justify-content: center;
     background-color: #f0f0f0;
 }
+
+.back-button {
+    margin-top: 16px;
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 14px;
+    color: #000d48;
+    background-color: #c7e2ff;
+    border: 1px solid #0056b3;
+    text-decoration: none;
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    color: #c7e2ff;
+}
