@@ -192,6 +192,7 @@ function redirectTo(url) {
 }
 
 function logout() {
+    alert("Session expired. Please login again.");
     localStorage.clear();
     window.location.href = "index.html";
 }

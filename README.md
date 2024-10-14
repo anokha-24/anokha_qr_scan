@@ -29,6 +29,6 @@ Built for Anokha Event Organizers/Admins to take attendance of the participants 
 
 1. Clone the repository.
 2. Open the project in your favorite code editor.
-3. Open the `login.html` file in your browser.
+3. Open the `index.html` file in your browser.
 
 Built with ❤️ by Ashwin Narayanan S.
