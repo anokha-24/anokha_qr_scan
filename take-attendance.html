@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer" />
+
+    <title>Anokha 2024 | Take Attendance</title>
+
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/take-attendance.css" />
+
+    <script src="html5-qrcode.min.js"></script>
+  </head>
+
+  <body onload="init()">
+    <h1>Take Attendance</h1>
+    <p id="event-name"></p>
+
+    <div class="segmented-control">
+      <button
+        class="segmented-control-button"
+        id="entry-button"
+        onclick="toggleEntry()"
+      >
+        Entry
+      </button>
+      <button
+        class="segmented-control-button"
+        id="exit-button"
+        onclick="toggleEntry()"
+      >
+        Exit
+      </button>
+    </div>
+
+    <p id="mode"></p>
+
+    <div id="reader"></div>
+  </body>
+
+  <script type="text/javascript" src="./app.js"></script>
+  <script type="text/javascript">
+    function extractStudentId(qrCodeText) {
+      if (qrCodeText.startsWith("anokha://")) {
+        return qrCodeText.substring(9);
+      }
+
+      return null;
+    }
+
+    var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 250,
+    });
+
+    function onScanSuccess(decodedText, decodedResult) {
+      console.log(`Scan result: ${decodedText}`);
+
+      html5QrcodeScanner.pause(true);
+
+      const studentId = extractStudentId(decodedText);
+      if (studentId === null) {
+        console.log(`Student ID: ${studentId}`);
+        alert("Invalid QR Code");
+        html5QrcodeScanner.resume();
+        return;
+      }
+
+      const eventId = getEventIdFromUrl();
+      const mode = document.querySelector("#mode").innerHTML;
+      const entry = mode === "Marking Entry";
+
+      // Call the API to mark attendance
+      if (entry) {
+        markEntry(eventId, studentId).then(() => {
+            html5QrcodeScanner.resume();
+        });
+        // console.log("Marking entry");
+
+        // setTimeout(() => {
+        //   html5QrcodeScanner.resume();
+        // }, 2000);
+      } else {
+        markExit(eventId, studentId).then(() => {
+            this.html5QrcodeScanner.resume();
+        });
+        // console.log("Marking exit");
+
+        // setTimeout(() => {
+        //   html5QrcodeScanner.resume();
+        // }, 2000);
+      }
+    }
+
+    html5QrcodeScanner.render(onScanSuccess);
+  </script>
+</html>

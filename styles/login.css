@@ -1,0 +1,97 @@
+.container {
+    width: 32%;
+    display: block;
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px;
+
+}
+
+@media screen and (max-width: 880px) {
+    .container {
+        width: 80%;
+    }
+}
+
+h2 {
+    font-size: xx-large;
+    margin-bottom: 8px;
+}
+
+.title p {
+    font-size: medium;
+    color: #666666;
+    margin-bottom: 24px;
+}
+
+form {
+    display: block;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-size: large;
+}
+
+input[type="submit"] {
+    padding: 12px;
+    font-size: larger;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 16px;
+    border: none;
+    background-color: #000000;
+    color: white;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #333333;
+}
+
+table {
+    width: 100%;
+    margin-top: 24px;
+    border-collapse: collapse;
+    font-size: smaller;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 8px;
+    font-size: larger;
+    border-radius: 8px;
+    border: none;
+    background-color: #000000;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #333333;
+}
