@@ -107,6 +107,8 @@ async function getOfficialEvents() {
         for (let i = 0; i < eventData.length; i++) {
             const eventElement = document.createElement('div');
             eventElement.classList.add('event-card');
+            // replace ' with # in event name
+            eventData[i].eventName = eventData[i].eventName.replace(/'/g, " ");
             eventElement.innerHTML = `
                         <img src="${eventData[i].eventImageURL}" alt="Event Image" />
                         <h2>${eventData[i].eventName}</h2>
