@@ -2,6 +2,11 @@
 
 Built for Anokha Event Organizers/Admins, this application allows you to take attendance of participants in events, ensuring that only registered participants are allowed to enter or exit the respective event. Additionally, entry and exit at the main gate can be recorded and controlled.
 
+## How to use it
+
+1. https://docs.google.com/document/d/e/2PACX-1vQ0RLywif-fNLVOdynzpOan68T8PDGxBnF60MCaoZdpbq-oV8pn8McHoh1QYqIxouDUgWoXnyzJ53oP/pub
+2. https://docs.google.com/document/d/e/2PACX-1vTkdbwPl2IwI5F-hq5VPNWEUc-5EyIu3oTmMcY0EGEWL4MVDI6XLC_F64K0e4NSO7RJysm2MVS16fdI/pub
+
 ## Features
 
 - [x] Admins/EventOrganizers/AttendanceTakers can login to the app.
